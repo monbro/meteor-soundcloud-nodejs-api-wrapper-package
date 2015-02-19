@@ -1,3 +1,5 @@
 .meteor/local
 .meteor/meteorite
 .build*
+.versions
+.npm/

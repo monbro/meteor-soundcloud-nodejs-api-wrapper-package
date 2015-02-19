@@ -1,6 +1,6 @@
 Package.describe({
-  name: 'soundcloud-nodejs-api-wrapper',
-  summary: 'Meteor wrapper for npm package soundcloud-nodejs-api-wrapper',
+  name: 'monbro:soundcloud-nodejs-api-wrapper',
+  summary: 'Meteor wrapper for npm package soundcloud-nodejs-api-wrapper.',
   version: '0.1.0',
   git: 'https://github.com/monbro/meteor-soundcloud-nodejs-api-wrapper-package/'
 });
