@@ -20,7 +20,7 @@ Simply add the following to your package.js file
 
 ``` js
 Package.onUse(function(api) {
-  api.use('soundcloud-nodejs-api-wrapper', 'server');
+  api.use('monbro:soundcloud-nodejs-api-wrapper', 'server');
 });
 
 ```
