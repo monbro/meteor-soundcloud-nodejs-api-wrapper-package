@@ -1,18 +1,33 @@
-soundcloud-nodejs-api-wrapper
-=============================
+meteor-soundcloud-nodejs-api-wrapper-package
+============================================
 
-This package will provide a easy way to access sensible data according to your profile on soundcloud while using oauth. This soundcloud API wrapper does not need any callback url or client / frontend side interaction.
+This is a package for the awesome full stack framework [meteorjs](https://www.meteor.com/).
+
+The package provides an easy way to access data according to your profile on soundcloud while using oauth. This soundcloud API wrapper does not need any callback url or client / frontend side interaction.
 
 # Dependencies
 
 * Meteor >1.0
-* NPM package soundcloud-nodejs-api-wrapper >0.2.0
+* NPM package [soundcloud-nodejs-api-wrapper](https://www.npmjs.com/package/soundcloud-nodejs-api-wrapper) >0.2.2
 
-# Installation
+# Installation in your meteor app
 
 Use `meteor add monbro:soundcloud-nodejs-api-wrapper` to add the package to your meteor app
 
+# Installation in your own meteor package
+
+Simply add the following to your package.js file
+
+``` js
+Package.onUse(function(api) {
+  api.use('soundcloud-nodejs-api-wrapper', 'server');
+});
+
+```
+
 # Usage
+
+The package will expose a variable `SC` which you can use as showed in the following example.
 
 ## Example using the wrapper somewhere in your meteor app
 

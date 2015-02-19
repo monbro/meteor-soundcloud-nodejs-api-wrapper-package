@@ -12,7 +12,7 @@ function configurePackage(api) {
   }
 
   Npm.depends({
-      "soundcloud-nodejs-api-wrapper": "0.2.0",
+      "soundcloud-nodejs-api-wrapper": "0.2.2",
     });
 
   api.addFiles('server.js', 'server');
