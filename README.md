@@ -27,36 +27,62 @@ Package.onUse(function(api) {
 
 ### Usage
 
-The package will expose a variable `SC` which you can use as showed in the following example.
+The package will expose a variable `Soundcloud` which you can use as showed in the following example. In addition the NPM Package itself is exposed into the variable `NpmSoundcloud`. Use this one if the Meteor Adapter does not work for your needs.
 
-### Example using the wrapper somewhere in your meteor app
+All avialable API requests are listed in the [Soundcloud Docs](https://developers.soundcloud.com/docs/api/reference#connect).
+
+### Initialise the client without a access token
 
 ``` js
-// change the following credential to make this demo work
-var sc = new SC({
-  client_id : "CLIENTID",
-  client_secret : "CLIENTSECRET",
-  username : 'USERNAME',
-  password: 'PASSWORD'
-});
+if (Meteor.isServer) {
+  // change the following credential to make this demo work
+  Soundcloud.setConfig({
+    client_id : "CLIENTID",
+    client_secret : "CLIENTSECRET",
+    username : 'USERNAME',
+    password: 'PASSWORD'
+  });
 
-var client = sc.client();
+  var client = Soundcloud.getClient();
 
-client.exchange_token(function(err, results) {
-
-  var access_token = arguments[3].access_token;
-  console.log('Our new access token "'+access_token+'" will expire in '+expires_in); // should show your new user token and when it will expire
-
-  console.log('Full API auth response was:');
-  console.log(arguments);
-
-  // we need to create a new client object which will use the access token now
-  var clientnew = sc.client({access_token : access_token});
-
-  clientnew.get('/me', {limit : 1}, function(err, result) {
+  client.get('/me', {limit : 1}, function(err, result) {
     if (err) console.error(err);
     console.log(result); // should show some data of your user
   });
 
-});
+}
+```
+
+### Initialise the client with a access token
+
+``` js
+if (Meteor.isServer) {
+  // change the following credential to make this demo work
+  Soundcloud.setConfig({
+    client_id : "CLIENTID",
+    client_secret : "CLIENTSECRET",
+    access_token : "ACCESSTOKEN"
+  });
+
+  var client = Soundcloud.getClient();
+}
+```
+
+#### Synchron Example for a API call after the client has been initialised
+``` js
+if (Meteor.isServer) {
+  var res = client.getSync('/me', {limit : 1});
+  console.log(res);
+}
+```
+
+#### Asynchron Example with callback for a API call after the client has been initialised
+This is good to use if you have some single tasks to do. For example to get for a couple of tracks all the comments and save them somewhere.
+``` js
+if (Meteor.isServer) {
+  client.getAsync('/tracks/190455882', {limit : 1}, function(err, res) {
+    if (err) console.error(err);
+    console.log(res);
+  });
+}
 ```
