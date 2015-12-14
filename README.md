@@ -3,12 +3,12 @@ meteor-soundcloud-nodejs-api-wrapper-package
 
 This is a package for the awesome full stack framework [meteorjs](https://www.meteor.com/).
 
-The package provides an easy way to access data according to your profile on soundcloud while using oauth. This soundcloud API wrapper does not need any callback url or client / frontend side interaction.
+The package provides an easy way to access and modify data according to your profile on soundcloud while using oauth. This soundcloud API wrapper does not need any callback url or client / frontend side interaction when the username and password is provided. Instead of the credentials you could use an access token as well.
 
 ### Dependencies
 
 * Meteor >1.0
-* NPM package [soundcloud-nodejs-api-wrapper](https://www.npmjs.com/package/soundcloud-nodejs-api-wrapper) >0.2.2
+* NPM package [soundcloud-nodejs-api-wrapper](https://www.npmjs.com/package/soundcloud-nodejs-api-wrapper) >0.2.4
 
 ### Installation in your meteor app
 
@@ -45,7 +45,7 @@ if (Meteor.isServer) {
 
   var client = Soundcloud.getClient();
 
-  // some api calls like the following examples belong to here
+  // some api calls like the following examples would belong to here
 }
 ```
 
@@ -72,6 +72,11 @@ if (Meteor.isServer) {
   // note that there is no need to use Meteor.wrapAsync or Meteor.bindEnvironment, this is done for you when using this function
   var res = client.getSync('/me', {limit : 1});
   console.log(res);
+
+  // and lets try to create a new empty playlist
+  var jsonString = '{"playlist":{"title":"My brand new playlist"}}';
+  var newPlaylistObject = client.postSync('/playlists', jsonString);
+  console.log(newPlaylistObject);
 }
 ```
 
@@ -84,5 +89,12 @@ if (Meteor.isServer) {
     if (err) console.error(err);
     console.log(res);
   });
+
+  // and lets try to create a new empty playlist
+  var jsonString = '{"playlist":{"title":"My brand new playlist"}}';
+  var newPlaylistObject = client.postAsync('/playlists', jsonString , function(err, res) {
+    if (err) console.error(err);
+    console.log(res);
+  }););
 }
 ```
